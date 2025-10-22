@@ -3,7 +3,7 @@
 # Dependencies
 node_modules
 .pnp
-.pnp.js
+.pnp.jsm
 
 # Local env files
 .env
