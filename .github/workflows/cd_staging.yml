@@ -19,8 +19,7 @@ jobs:
       - name: SSH into Server and Redeploy
         run: |
           ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOF'
-            source ~/.profile
-            source ~/.bashrc
+            export PATH=$HOME/.local/bin:$PATH
             cd Devops
             git pull origin main
             cd day-25/2/bms
