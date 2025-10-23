@@ -6,7 +6,7 @@ on:
 
 jobs:
     redeploy_everything :
-        name : Redeploy Frontend on Staging Server
+        name : Redeploy Frontend on  Staging Server
         runs-on : ubuntu-latest
 
         steps : 
