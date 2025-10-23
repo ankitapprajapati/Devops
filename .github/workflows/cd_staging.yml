@@ -12,7 +12,7 @@ jobs:
 
     steps:
       - name: Decode SSH Private Key
-        run: |
+        run: | 
           echo "${{secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
           chmod 600 ~/ssh_key
 
