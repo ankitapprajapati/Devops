@@ -7,28 +7,22 @@ on:
 
 jobs:
   redeploy_everything:
-    name: Redeploy on Staging Server
+    name: Redeploy Backend and Frontend on Staging Server
     runs-on: ubuntu-latest
 
     steps:
-      - name: SSH into EC2 and redeploy
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+      - name: Decode SSH Private Key
         run: |
-          # Write SSH key safely (avoid breaking multiline key)
-          cat <<'EOF' > ~/ssh_key
-          ${SSH_PRIVATE_KEY}
-          EOF
-
-          # Set correct file permissions
+          echo "$SSH_PRIVATE_KEY" | base64 --decode > ~/ssh_key
           chmod 600 ~/ssh_key
 
-          # Connect to EC2 and run deployment commands
-          ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOSSH'
+      - name: SSH into Server and Redeploy
+        run: |
+          ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOF'
             cd Devops
             git pull origin main
             cd day-25/2/bms
             pnpm install
             pnpm run build
-            pm2 restart all 
-          EOSSH
+            pm2 restart all
+          EOF
