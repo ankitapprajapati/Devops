@@ -19,7 +19,9 @@ jobs:
       - name: SSH into Server and Redeploy
         run: |
           ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOF'
-            export PATH=$HOME/.local/bin:$PATH
+            export NVM_DIR="$HOME/.nvm"
+            [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+            export PATH=$NVM_DIR/versions/node/v18.20.8/bin:$PATH
             cd Devops
             git pull origin main
             cd day-25/2/bms
