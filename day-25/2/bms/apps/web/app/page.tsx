@@ -9,7 +9,9 @@ export default async function Home() {
     <div className={styles.page}>
       <h1>Welcome to BMS Web App</h1>
       <div>
+        Name : 
         {user ?.username}
+        Password : 
         {user ?.password}
       </div>
     </div>
