@@ -1,26 +1,34 @@
-name : Deploying to Staging Server
+name: Deploying to Staging Server
+
 on:
   push:
     branches:
       - main
 
 jobs:
-    redeploy_everything :
-        name : Redeploy Frontend on  Staging Server
-        runs-on : ubuntu-latest
+  redeploy_everything:
+    name: Redeploy on Staging Server
+    runs-on: ubuntu-latest
 
-        steps : 
-            - name: SSH into server
-              run: | 
-                echo "${SSH_PRIVATE_KEY}" > ~/ssh_key
-                chmod 600 ~/ssh_key
-                ssh -i ~/ssh_key -o StrictHostKeyChecking=yes ubuntu@51.20.53.226 << 'EOF'
-                  cd Devops
-                  git pull origin main
-                  cd day-25/2/bms
-                  pnpm install
-                  pnpm run build
-                  pm2 restart all
-                EOF
+    steps:
+      - name: SSH into EC2 and redeploy
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        run: |
+          # Write SSH key safely (avoid breaking multiline key)
+          cat <<'EOF' > ~/ssh_key
+          ${SSH_PRIVATE_KEY}
+          EOF
 
+          # Set correct file permissions
+          chmod 600 ~/ssh_key
 
+          # Connect to EC2 and run deployment commands
+          ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOSSH'
+            cd Devops
+            git pull origin main
+            cd day-25/2/bms
+            pnpm install
+            pnpm run build
+            pm2 restart all
+          EOSSH
