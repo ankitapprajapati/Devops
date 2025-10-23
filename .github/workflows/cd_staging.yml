@@ -11,7 +11,7 @@ jobs:
 
         steps : 
             - name: SSH into server
-              run: |
+              run: | 
                 echo "${SSH_PRIVATE_KEY}" > ~/ssh_key
                 chmod 600 ~/ssh_key
                 ssh -i ~/ssh_key -o StrictHostKeyChecking=no ubuntu@51.20.53.226 << 'EOF'
