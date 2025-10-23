@@ -13,7 +13,7 @@ jobs:
     steps:
       - name: Decode SSH Private Key
         run: |
-          echo "$SSH_PRIVATE_KEY" | base64 --decode > ~/ssh_key
+          echo "${{secrets.SSH_PRIVATE_KEY}}" &> ~/ssh_key
           chmod 600 ~/ssh_key
 
       - name: SSH into Server and Redeploy
