@@ -9,8 +9,9 @@ RUN npm install
 
 COPY . .
 
-RUN npx prisma migrate dev
 RUN npx prisma generate
 RUN npm run build
 
-CMD [ "npm" , "run", "start" ]
+EXPOSE 3000
+
+CMD [ "npm" ,"run", "dev:docker" ]
