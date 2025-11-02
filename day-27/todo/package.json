@@ -1,5 +1,5 @@
 {
-  "name": "todo-app",
+  "name": "todo",
   "private": true,
   "scripts": {
     "build": "turbo run build",
@@ -10,15 +10,11 @@
   },
   "devDependencies": {
     "prettier": "^3.6.2",
-    "turbo": "^2.5.8",
+    "turbo": "^2.6.0",
     "typescript": "5.9.2"
   },
+  "packageManager": "pnpm@9.0.0",
   "engines": {
     "node": ">=18"
-  },
-  "packageManager": "bun@1.2.2",
-  "workspaces": [
-    "apps/*",
-    "packages/*"
-  ]
+  }
 }
