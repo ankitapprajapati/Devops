@@ -7,3 +7,7 @@ export default async function Home() {
     </div>
   );
 }
+
+export const dyanamic = "force-dyanamic"
+
+// export const revalidate = 60 
