@@ -1,12 +1,12 @@
 version: '3.8'
 
 services:
-  backend:
+  server:
     build:
       context: .
-      dockerfile: docker/Dockerfile.backend
+      dockerfile: docker/Dockerfile.server
     ports:
-      - "8080:8080"
+      - "3002:3002"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
     depends_on:
@@ -14,7 +14,7 @@ services:
   frontend:
     build:
       context: .
-      dockerfile: docker/Dockerfile.frontend
+      dockerfile: docker/Dockerfile.web
       args:
         - DB_URL=postgresql://postgres:postgres@postgres:5432/postgres
     ports:
@@ -28,7 +28,7 @@ services:
       context: .
       dockerfile: docker/Dockerfile.ws
     ports:
-      - "8081:8081"
+      - "3001:3001"
     environment:
       - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/postgres
     depends_on:
